@@ -1,0 +1,383 @@
+/* ── Google Fonts ─────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@600;700&family=JetBrains+Mono:wght@400;500&family=Fraunces:wght@600;700&display=swap');
+
+/* ── Reset & Base Cozy ────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ── Mapeo de Overrides para el Tema de Zensical ───────── */
+:root {
+  --ink: #2a2622;
+  --ink-2: #4a443d;
+  --ink-3: #6f665c;
+  --ink-4: #9a8f83;
+
+  --bg: #f7f1e8;
+  --bg-2: #fffaf3;
+  --bg-3: #efe4d6;
+
+  --accent-cozy: #7b8bd6;
+  --accent-dim: #f0f1ff;
+  --accent-dark: #4e5aa8;
+
+  --green: #2f7a57;
+  --green-bg: #e9f4ee;
+
+  --amber: #a66a2c;
+  --amber-bg: #fbf0e2;
+
+  --purple: #6b5aa6;
+  --purple-bg: #f1ecfb;
+
+  --border: #e8dccb;
+  --border-2: #d8c7b3;
+
+  --shadow-sm: 0 1px 2px rgba(30, 20, 10, 0.06);
+  --shadow-md: 0 6px 18px rgba(30, 20, 10, 0.08);
+  --shadow-lg: 0 12px 28px rgba(30, 20, 10, 0.12);
+
+  /* Radios cozy: nada de esquinas duras */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --font-display: 'Fraunces', var(--font-sans);
+
+  /* OVERRIDES OFICIALES DE ZENSICAL */
+  --md-primary-fg-color: var(--bg-3);
+  --md-primary-fg-color--text: var(--ink);
+  --md-primary-bg-color: var(--bg);
+
+  --md-accent-fg-color: var(--accent-cozy);
+  --md-accent-fg-color--transparent: var(--accent-dim);
+
+  --md-default-bg-color: var(--bg-2);
+  --md-default-fg-color: var(--ink);
+  --md-default-fg-color--light: var(--ink-2);
+
+  --md-text-font: var(--font-sans);
+  --md-code-font: var(--font-mono);
+
+  --md-typeset-bg-color: var(--bg-2);
+}
+
+[data-md-color-scheme="slate"] {
+  --bg: #1d1a17;
+  --bg-2: #242019;
+  --bg-3: #2d2820;
+
+  --ink: #ede6db;
+  --ink-2: #d3c9ba;
+  --ink-3: #b0a595;
+
+  --border: #3d362c;
+  --border-2: #4a4136;
+
+  --accent-cozy: #93a5ff;
+  --accent-dim: #2a2d4a;
+
+  --green-bg: #1f3327;
+  --amber-bg: #3a2a18;
+  --purple-bg: #2a2340;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.4);
+
+  --md-default-bg-color: var(--bg);
+  --md-default-fg-color: var(--ink);
+
+  --md-primary-fg-color: var(--bg-3);
+  --md-primary-fg-color--text: var(--ink);
+}
+
+/* ── Cuerpo general ───────────────────────────────────── */
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.75;
+  letter-spacing: 0.1px;
+}
+
+/* Más aire en el contenido, como un libro y no una hoja de cálculo */
+.md-typeset {
+  font-size: 0.8rem;
+  line-height: 1.75;
+}
+
+.md-content__inner {
+  padding-top: 1.6rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Selección de texto con acento cozy en vez del azul del navegador */
+::selection {
+  background: var(--accent-dim);
+  color: var(--ink);
+}
+
+/* Scrollbar cálida (webkit) */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--border-2);
+  border-radius: 999px;
+  border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--ink-4); }
+
+/* ── Títulos con toque editorial ──────────────────────── */
+h1, h2, h3, .md-typeset h1, .md-typeset h2 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.md-typeset h1 { margin-bottom: 1.2rem; }
+
+.md-typeset h2 {
+  margin-top: 2.4rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed var(--border-2);
+}
+
+.md-typeset h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+/* ── Enlaces con subrayado suave, no plano ────────────── */
+.md-typeset a {
+  color: var(--accent-dark);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-cozy);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.md-typeset a:hover {
+  color: var(--accent-cozy);
+}
+
+/* ── Bloques de código con textura de "cuaderno" ──────── */
+.md-typeset code {
+  background: var(--bg-3);
+  color: var(--ink-2);
+  border-radius: 5px;
+  padding: 0.1em 0.4em;
+  font-size: 0.85em;
+  border: 1px solid var(--border);
+}
+
+.md-typeset pre {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.md-typeset pre > code {
+  border: none;
+  background: transparent;
+  padding: 1rem 1.2rem;
+}
+
+.md-typeset .highlight {
+  border-radius: var(--radius-md);
+}
+
+/* ── Blockquotes / Admonitions con carácter ───────────── */
+.md-typeset blockquote {
+  border-left: 4px solid var(--accent-cozy);
+  background: var(--bg-3);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 0.8rem 1.2rem;
+  color: var(--ink-2);
+}
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  background: var(--bg-2);
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+/* ── Tablas más suaves ─────────────────────────────────── */
+.md-typeset table:not([class]) {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.md-typeset table:not([class]) th {
+  background: var(--bg-3);
+  font-family: var(--font-display);
+  color: var(--ink);
+}
+
+.md-typeset table:not([class]) tr:nth-child(even) {
+  background: var(--bg-2);
+}
+
+/* ── Navegación lateral cozy ───────────────────────────── */
+.md-nav__link {
+  border-radius: var(--radius-sm);
+  transition: background 0.15s ease;
+}
+
+.md-nav__link:hover {
+  background: var(--bg-3);
+}
+
+.md-nav__link--active {
+  color: var(--accent-dark);
+  font-weight: 600;
+}
+
+/* Caja de búsqueda con esquinas suaves */
+.md-search__form {
+  border-radius: var(--radius-lg);
+  background: var(--bg-3);
+}
+
+/* ── Estilos de las Tarjetas de Agentes (Grid Cards) ───── */
+
+.cozy-cards ul li {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: .8rem .3rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.cozy-cards ul li:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.cozy-cards ul li strong {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+
+.cozy-cards hr {
+  border: 0;
+  border-top: 1px dashed var(--border);
+  margin: 1rem 0;
+}
+
+.cozy-cards ul li p:first-of-type {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Sistema de Badges, más "pill" y suave */
+.badge {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+}
+
+.badge-lider { background-color: var(--accent-dim); color: var(--accent-dark); }
+.badge-codigo { background-color: var(--green-bg); color: var(--green); }
+.badge-tests { background-color: var(--purple-bg); color: var(--purple); }
+.badge-calidad { background-color: var(--amber-bg); color: var(--amber); }
+
+/* Color de iconos Lucide */
+.cozy-cards .lucide-boxes { color: var(--accent-cozy); }
+.cozy-cards .lucide-server { color: var(--green); }
+.cozy-cards .lucide-flask-conical { color: var(--purple); }
+.cozy-cards .lucide-eye { color: var(--amber); }
+
+
+/* ── Estilos Cozy para el destino de las Referencias ── */
+
+/* Buscamos la lista ordenada dentro de nuestro contenedor */
+.cozy-references ol {
+  list-style: none; /* Quitamos el número por defecto pegado al texto */
+  counter-reset: cozy-counter;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Espaciado entre referencias */
+}
+
+.cozy-references ol li {
+  counter-increment: cozy-counter;
+  position: relative;
+  padding-left: 2.5rem; /* Deja espacio para el número flotante a la izquierda */
+  color: var(--ink-2, #4a443d);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Reemplazamos el número por uno cozy estilizado a la izquierda */
+.cozy-references ol li::before {
+  content: "[" counter(cozy-counter) "]";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-mono);
+  color: var(--accent-cozy, #7b8bd6);
+  font-weight: 500;
+}
+
+/* Ajustes de títulos y links dentro de tu lista */
+.cozy-references ol li strong {
+  color: var(--ink, #2a2622);
+  font-size: 1.05rem;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.cozy-references ol li a {
+  color: var(--accent-dark, #4e5aa8);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.cozy-references ol li a:hover {
+  text-decoration: underline;
+}
+
+/* Destello sutil cuando el usuario salta desde el index.md */
+.cozy-references ol li:has(:target) {
+  background-color: var(--accent-dim, #f0f1ff);
+  border-radius: 6px;
+  padding-left: 2.8rem;
+  margin-left: -0.3rem;
+  transition: background-color 0.4s ease;
+}
+
+/* Ajuste fino para los numeritos tipo footnote en el texto */
+sup a {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--accent-cozy, #7b8bd6) !important;
+  text-decoration: none;
+  padding: 0 1px;
+}
