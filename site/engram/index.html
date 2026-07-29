@@ -1,0 +1,1690 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Una guía práctica y didáctica para aprender a crear tu propio arnés de agente">
+      
+      
+        <meta name="author" content="Flavio César Oria Pinto">
+      
+      
+      
+        <link rel="prev" href="../harness/">
+      
+      
+        <link rel="next" href="../references/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.46">
+    
+    
+      
+        <title>Memoria Persistente con Engram - Construye tu propio Harness Agent</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.19d3147f.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navegación"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#por-que-memoria-persistente" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="./.." title="Construye tu propio Harness Agent" class="md-header__button md-logo" aria-label="Construye tu propio Harness Agent" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="Navegación">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Construye tu propio Harness Agent
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Memoria Persistente con Engram
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Cambiar a modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Cambiar a modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Cambiar a modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="Buscar">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Buscar">
+  <button type="button" class="md-search__button">
+    Buscar
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="Construye tu propio Harness Agent" class="md-nav__button md-logo" aria-label="Construye tu propio Harness Agent" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    Construye tu propio Harness Agent
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-rocket" viewBox="0 0 24 24"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"/><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Introducción al Harness
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../base_docs/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-file-text" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10 9H8M16 13H8M16 17H8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Documentos Base
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../harness/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-network" viewBox="0 0 24 24"><rect width="6" height="6" x="16" y="16" rx="1"/><rect width="6" height="6" x="2" y="16" rx="1"/><rect width="6" height="6" x="9" y="2" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3M12 12V8"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  El Harness
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-brain" viewBox="0 0 24 24"><path d="M12 18V5M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Memoria Persistente con Engram
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-brain" viewBox="0 0 24 24"><path d="M12 18V5M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Memoria Persistente con Engram
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#por-que-memoria-persistente" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Por qué memoria persistente?
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Por qué memoria persistente?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encaje-en-el-harness" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Encaje en el harness
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-engram" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Qué es Engram?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Instalación
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#macos-linux-homebrew" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        macOS / Linux — Homebrew
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-windows-binario" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Linux / Windows — Binario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verificar-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Verificar instalación
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-con-opencode" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Configuración con OpenCode
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración con OpenCode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opcion-automatica-recomendada" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Opción automática (recomendada)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opcion-manual-sin-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Opción manual (sin plugin)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Memory Protocol
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-mcp-20-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Herramientas MCP — 20 tools
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Herramientas MCP — 20 tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#referencia-de-herramientas-principales" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Referencia de herramientas principales
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flujo-de-trabajo-ejemplo-con-opencode" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Flujo de trabajo: Ejemplo con OpenCode
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flujo de trabajo: Ejemplo con OpenCode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminal-opencode-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Terminal — OpenCode session
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-completo-harness-engram" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Workflow completo: Harness + Engram
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow completo: Harness + Engram">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integracion-con-los-comandos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Integración con los comandos
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flujo-visual" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Flujo visual
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#topic-keys-organizacion-de-memorias" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Topic Keys — Organización de memorias
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Topic Keys — Organización de memorias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-un-topic_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Qué es un topic_key?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formato" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Formato
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cuando-usarlo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cuándo usarlo
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ejemplo completo
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#familias-de-topic-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Familias de topic keys
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Referencias
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references/" class="md-nav__link">
+        
+  
+  
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-scroll-text" viewBox="0 0 24 24"><path d="M15 12h-5M15 8h-5M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/></svg>
+  
+  <span class="md-ellipsis">
+    
+  
+  Referencias
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  
+                    
+                    
+                    
+                    
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
+                  
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#por-que-memoria-persistente" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Por qué memoria persistente?
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Por qué memoria persistente?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#encaje-en-el-harness" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Encaje en el harness
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-engram" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Qué es Engram?
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Instalación
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#macos-linux-homebrew" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        macOS / Linux — Homebrew
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-windows-binario" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Linux / Windows — Binario
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verificar-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Verificar instalación
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-con-opencode" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Configuración con OpenCode
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración con OpenCode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opcion-automatica-recomendada" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Opción automática (recomendada)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opcion-manual-sin-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Opción manual (sin plugin)
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Memory Protocol
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#herramientas-mcp-20-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Herramientas MCP — 20 tools
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Herramientas MCP — 20 tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#referencia-de-herramientas-principales" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Referencia de herramientas principales
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flujo-de-trabajo-ejemplo-con-opencode" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Flujo de trabajo: Ejemplo con OpenCode
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flujo de trabajo: Ejemplo con OpenCode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminal-opencode-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Terminal — OpenCode session
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-completo-harness-engram" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Workflow completo: Harness + Engram
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Workflow completo: Harness + Engram">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integracion-con-los-comandos" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Integración con los comandos
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flujo-visual" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Flujo visual
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#topic-keys-organizacion-de-memorias" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Topic Keys — Organización de memorias
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Topic Keys — Organización de memorias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-es-un-topic_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ¿Qué es un topic_key?
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#formato" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Formato
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cuando-usarlo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Cuándo usarlo
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejemplo-completo" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Ejemplo completo
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#familias-de-topic-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Familias de topic keys
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Referencias
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <h1 id="__skip">Memoria Persistente con Engram</h1>
+
+<h2 id="por-que-memoria-persistente">¿Por qué memoria persistente?<a class="headerlink" href="#por-que-memoria-persistente" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">🧠 Analogía</p>
+<p>Tu agente IA es brillante pero amnésico. Cada vez que cierras la sesión, olvida todo: las decisiones que tomaste, los bugs que encontraste, los patrones que estableciste. Engram es el cuaderno que siempre está sobre la mesa — el agente escribe lo importante y lo lee al día siguiente.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Dimensión</th>
+<th>Sin Engram</th>
+<th>Con Engram</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Contexto entre sesiones</strong></td>
+<td>Cero — empieza de cero cada vez</td>
+<td><code>mem_context</code> recupera el historial</td>
+</tr>
+<tr>
+<td><strong>Decisiones de arquitectura</strong></td>
+<td>Las repites en cada sesión</td>
+<td><code>mem_search</code> las encuentra al instante</td>
+</tr>
+<tr>
+<td><strong>Bugs ya corregidos</strong></td>
+<td>Puede reintroducirlos sin saberlo</td>
+<td><code>mem_save</code> los recuerda y documenta</td>
+</tr>
+<tr>
+<td><strong>Patrones del proyecto</strong></td>
+<td>No aprende de experiencia previa</td>
+<td><code>topic_key</code> actualiza en place</td>
+</tr>
+<tr>
+<td><strong>Cierre de sesión</strong></td>
+<td>Se pierde todo el contexto</td>
+<td><code>mem_session_summary</code> persiste el resumen</td>
+</tr>
+</tbody>
+</table>
+<h3 id="encaje-en-el-harness">Encaje en el harness<a class="headerlink" href="#encaje-en-el-harness" title="Permanent link">&para;</a></h3>
+<p>El harness ya coordina agentes que comparten archivos, specs y skills. Engram añade una capa de <strong>memoria compartida entre sesiones</strong>: el orchestrator usa <code>mem_search</code> antes de planificar, backend usa <code>mem_save</code> para guardar patrones de implementación, y reviewer usa <code>mem_context</code> para recordar findings de revisiones anteriores.</p>
+<hr />
+<h2 id="que-es-engram">¿Qué es Engram?<a class="headerlink" href="#que-es-engram" title="Permanent link">&para;</a></h2>
+<p><code>engram</code> <code>/ˈen.ɡræm/</code> — <em>neuroscience</em>: la huella física de una memoria en el cerebro.</p>
+<p>Un <strong>binario Go</strong> con SQLite + FTS5 full-text search, expuesto vía MCP server, HTTP API, CLI y TUI. Agent-agnostic: funciona con OpenCode, Claude Code, Gemini CLI, Codex, Cursor, VS Code Copilot y cualquier cliente MCP. <sup><a href="../references/#ref12">[12]</a></sup></p>
+<pre class="mermaid"><code>graph LR
+    Agent[🤖 OpenCode / Claude Code] --&gt;|MCP stdio| Engram[🧠 Engram Binary]
+    Engram --&gt;|SQLite + FTS5| DB[(~/.engram/engram.db)]</code></pre>
+<p>No necesita Node.js, Python ni Docker. Un binario, una base de datos.</p>
+<hr />
+<h2 id="instalacion">Instalación<a class="headerlink" href="#instalacion" title="Permanent link">&para;</a></h2>
+<h3 id="macos-linux-homebrew">macOS / Linux — Homebrew<a class="headerlink" href="#macos-linux-homebrew" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>brew<span class="w"> </span>install<span class="w"> </span>gentleman-programming/tap/engram
+</span></code></pre></div>
+<p>Para actualizar:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>brew<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>brew<span class="w"> </span>upgrade<span class="w"> </span>engram
+</span></code></pre></div>
+<h3 id="linux-windows-binario">Linux / Windows — Binario<a class="headerlink" href="#linux-windows-binario" title="Permanent link">&para;</a></h3>
+<p>Descargar el binario para tu plataforma desde <a href="https://github.com/Gentleman-Programming/engram/releases">GitHub Releases</a> y añadirlo al PATH.</p>
+<h3 id="verificar-instalacion">Verificar instalación<a class="headerlink" href="#verificar-instalacion" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>engram<span class="w"> </span>version
+</span></code></pre></div>
+<hr />
+<h2 id="configuracion-con-opencode">Configuración con OpenCode<a class="headerlink" href="#configuracion-con-opencode" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">🔌 Analogía</p>
+<p>OpenCode funciona solo, pero sin Engram es como un coche sin cuaderno de bordo: va, pero no recuerda por dónde pasó. Engram añade la memoria al conductor.</p>
+</div>
+<h3 id="opcion-automatica-recomendada">Opción automática (recomendada)<a class="headerlink" href="#opcion-automatica-recomendada" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>engram<span class="w"> </span>setup<span class="w"> </span>opencode
+</span></code></pre></div>
+<p>Este comando hace tres cosas:</p>
+<p><strong>1. Plugin</strong> — copia <code>engram.ts</code> a <code>~/.config/opencode/plugins/</code></p>
+<ul>
+<li>Session tracking automático</li>
+<li>Memory Protocol inyectado en el agente</li>
+<li>Recuperación post-compaction</li>
+</ul>
+<p><strong>2. MCP server</strong> — añade la configuración a <code>opencode.json</code></p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;mcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">&quot;engram&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;engram&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mcp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;--tools=agent&quot;</span><span class="p">],</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">      </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>3. Statusline</strong> — añade indicador de actividad del sub-agente en <code>tui.json</code></p>
+<p>Después del setup, <strong>reinicia OpenCode</strong>. No necesitas ejecutar <code>engram serve</code> manualmente — el plugin gestiona el servidor.</p>
+<h3 id="opcion-manual-sin-plugin">Opción manual (sin plugin)<a class="headerlink" href="#opcion-manual-sin-plugin" title="Permanent link">&para;</a></h3>
+<p>Si prefieres configurar solo el MCP server sin el plugin, añade directamente a <code>opencode.json</code> (global: <code>~/.config/opencode/opencode.json</code>, o por proyecto):</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;mcp&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">&quot;engram&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;local&quot;</span><span class="p">,</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;engram&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mcp&quot;</span><span class="p">],</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">      </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Sin plugin = sin session tracking</p>
+<p>Sin el plugin, Engram funciona pero no hace session tracking automático. Tendrás que llamar a <code>mem_session_summary</code> manualmente al final de cada sesión. El plugin lo hace automático.</p>
+</div>
+<h3 id="memory-protocol">Memory Protocol<a class="headerlink" href="#memory-protocol" title="Permanent link">&para;</a></h3>
+<p>Para que el agente sepa <strong>cuándo</strong> usar Engram, añade este snippet al prompt del agente en <code>opencode.json</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>You have access to Engram persistent memory via MCP tools (mem_save, mem_search, mem_session_summary, etc.).
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Save proactively after significant work — don&#39;t wait to be asked.
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>After any compaction or context reset, call mem_context to recover session state before continuing.
+</span></code></pre></div>
+<p>Esto es la opción "nuclear" — el prompt del sistema sobrevive a la compaction. Úsalo cuando quieras garantía absoluta de que el agente usará Engram.</p>
+<hr />
+<h2 id="herramientas-mcp-20-tools">Herramientas MCP — 20 tools<a class="headerlink" href="#herramientas-mcp-20-tools" title="Permanent link">&para;</a></h2>
+<div class="grid cards cozy-cards">
+<ul>
+<li>
+<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-save" viewBox="0 0 24 24"><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7M7 3v4a1 1 0 0 0 1 1h7"/></svg></span> <strong>Guardar</strong></p>
+<hr />
+<p><code>mem_save</code> · <code>mem_update</code> · <code>mem_delete</code> · <code>mem_suggest_topic_key</code></p>
+</li>
+<li>
+<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg></span> <strong>Buscar</strong></p>
+<hr />
+<p><code>mem_search</code> · <code>mem_context</code> · <code>mem_timeline</code> · <code>mem_get_observation</code></p>
+</li>
+<li>
+<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-play" viewBox="0 0 24 24"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg></span> <strong>Sesión</strong></p>
+<hr />
+<p><code>mem_session_start</code> · <code>mem_session_end</code> · <code>mem_session_summary</code></p>
+</li>
+<li>
+<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-git-compare" viewBox="0 0 24 24"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7M11 18H8a2 2 0 0 1-2-2V9"/></svg></span> <strong>Conflictos</strong></p>
+<hr />
+<p><code>mem_judge</code> · <code>mem_compare</code></p>
+</li>
+<li>
+<p><span class="twemoji lg middle"><svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></svg></span> <strong>Utilidades</strong></p>
+<hr />
+<p><code>mem_save_prompt</code> · <code>mem_stats</code> · <code>mem_capture_passive</code> · <code>mem_merge_projects</code> · <code>mem_current_project</code> · <code>mem_doctor</code></p>
+</li>
+</ul>
+</div>
+<h3 id="referencia-de-herramientas-principales">Referencia de herramientas principales<a class="headerlink" href="#referencia-de-herramientas-principales" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mem_current_project</code></td>
+<td>Detecta el proyecto desde el directorio de trabajo. Llamar primero.</td>
+</tr>
+<tr>
+<td><code>mem_save</code></td>
+<td>Guarda una observación estructurada con formato What/Why/Where/Learned</td>
+</tr>
+<tr>
+<td><code>mem_search</code></td>
+<td>Búsqueda full-text con FTS5 across todas las memorias</td>
+</tr>
+<tr>
+<td><code>mem_context</code></td>
+<td>Devuelve el contexto reciente de sesiones anteriores</td>
+</tr>
+<tr>
+<td><code>mem_session_summary</code></td>
+<td>Guarda el resumen de cierre de sesión (obligatorio antes de terminar)</td>
+</tr>
+<tr>
+<td><code>mem_suggest_topic_key</code></td>
+<td>Sugiere una key estable para upserts antes de <code>mem_save</code></td>
+</tr>
+<tr>
+<td><code>mem_update</code></td>
+<td>Actualiza una observación existente por ID</td>
+</tr>
+<tr>
+<td><code>mem_timeline</code></td>
+<td>Contexto cronológico alrededor de una observación</td>
+</tr>
+<tr>
+<td><code>mem_get_observation</code></td>
+<td>Obtiene el contenido completo sin truncar de una memoria</td>
+</tr>
+<tr>
+<td><code>mem_judge</code></td>
+<td>Registra un veredicto sobre un conflicto pendiente</td>
+</tr>
+<tr>
+<td><code>mem_compare</code></td>
+<td>Persiste una relación semántica entre dos memorias</td>
+</tr>
+<tr>
+<td><code>mem_delete</code></td>
+<td>Elimina una observación (soft-delete por defecto, <code>--hard</code> permanente)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Progresión de 3 capas — eficiente en tokens</p>
+<p>No cargues toda la memoria de golpe. Usa la progresión:
+1. <code>mem_search "auth middleware"</code> → resultados compactos con IDs (~100 tokens c/u)
+2. <code>mem_timeline observation_id=42</code> → qué pasó antes/después en esa sesión
+3. <code>mem_get_observation id=42</code> → contenido completo sin truncar</p>
+</div>
+<hr />
+<h2 id="flujo-de-trabajo-ejemplo-con-opencode">Flujo de trabajo: Ejemplo con OpenCode<a class="headerlink" href="#flujo-de-trabajo-ejemplo-con-opencode" title="Permanent link">&para;</a></h2>
+<h3 id="terminal-opencode-session">Terminal — OpenCode session<a class="headerlink" href="#terminal-opencode-session" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>abres OpenCode en tu proyecto
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>cd todo-harness
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>opencode
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>tú: /harness-run añadir campo priority (high/medium/low) a los todos
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>orchestrator:
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>  --- [AGENTE: orchestrator] ---
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>  mem_current_project → &quot;todo-harness&quot; ✓
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>  mem_search &quot;priority&quot; → 0 resultados (tema nuevo)
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>  Leyendo openspec/specs/todo-crud/spec.md...
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>  No existe spec para priority. Creando proposal...
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>  Creando openspec/changes/add-priority/proposal.md ✓
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>  Creando openspec/changes/add-priority/tasks.md    ✓
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>  Plan: 8 tareas, requiere migración Alembic, backward compatible.
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>  ¿Implemento?
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>tú: sí
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>
+</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>orchestrator:
+</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>  --- [AGENTE: backend] ---
+</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>
+</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>  Tarea 1: Añadiendo campo priority al modelo Todo...
+</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>  Tarea 2: Generando migración Alembic...
+</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>  → Revisando migración generada manualmente...
+</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a>  Tarea 3: Aplicando migración...
+</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a>  Tarea 4: Actualizando schemas...
+</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>  Tarea 5: Añadiendo filtro ?priority=...
+</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a>  Ejecutando: uv run pytest ✓ 14 tests pasados
+</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a>
+</span><span id="__span-7-35"><a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a>  mem_save(
+</span><span id="__span-7-36"><a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a>    title=&quot;Patrón migración NOT NULL con default&quot;,
+</span><span id="__span-7-37"><a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a>    type=&quot;pattern&quot;,
+</span><span id="__span-7-38"><a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a>    topic_key=&quot;pattern/db-migration-not-null&quot;,
+</span><span id="__span-7-39"><a id="__codelineno-7-39" name="__codelineno-7-39" href="#__codelineno-7-39"></a>    content=&quot;What: Usar server_default en columnas NOT NULL\n
+</span><span id="__span-7-40"><a id="__codelineno-7-40" name="__codelineno-7-40" href="#__codelineno-7-40"></a>             Why: Evita error en tablas con datos existentes\n
+</span><span id="__span-7-41"><a id="__codelineno-7-41" name="__codelineno-7-41" href="#__codelineno-7-41"></a>             Where: app/models/todo.py, alembic/versions/\n
+</span><span id="__span-7-42"><a id="__codelineno-7-42" name="__codelineno-7-42" href="#__codelineno-7-42"></a>             Learned: Nunca usar Base.metadata.create_all en producción&quot;
+</span><span id="__span-7-43"><a id="__codelineno-7-43" name="__codelineno-7-43" href="#__codelineno-7-43"></a>  ) ✓
+</span><span id="__span-7-44"><a id="__codelineno-7-44" name="__codelineno-7-44" href="#__codelineno-7-44"></a>
+</span><span id="__span-7-45"><a id="__codelineno-7-45" name="__codelineno-7-45" href="#__codelineno-7-45"></a>  --- [AGENTE: reviewer] ---
+</span><span id="__span-7-46"><a id="__codelineno-7-46" name="__codelineno-7-46" href="#__codelineno-7-46"></a>
+</span><span id="__span-7-47"><a id="__codelineno-7-47" name="__codelineno-7-47" href="#__codelineno-7-47"></a>  mem_context → &quot;todo-harness&quot; → 3 memorias previas encontradas
+</span><span id="__span-7-48"><a id="__codelineno-7-48" name="__codelineno-7-48" href="#__codelineno-7-48"></a>  mem_search &quot;migración&quot; → patrón de backend encontrado ✓
+</span><span id="__span-7-49"><a id="__codelineno-7-49" name="__codelineno-7-49" href="#__codelineno-7-49"></a>
+</span><span id="__span-7-50"><a id="__codelineno-7-50" name="__codelineno-7-50" href="#__codelineno-7-50"></a>  Verificando capas... ✓
+</span><span id="__span-7-51"><a id="__codelineno-7-51" name="__codelineno-7-51" href="#__codelineno-7-51"></a>  Usando MCP postgres: \d todos...
+</span><span id="__span-7-52"><a id="__codelineno-7-52" name="__codelineno-7-52" href="#__codelineno-7-52"></a>    → Columna priority presente: VARCHAR NOT NULL DEFAULT &#39;medium&#39; ✓
+</span><span id="__span-7-53"><a id="__codelineno-7-53" name="__codelineno-7-53" href="#__codelineno-7-53"></a>  Findings:
+</span><span id="__span-7-54"><a id="__codelineno-7-54" name="__codelineno-7-54" href="#__codelineno-7-54"></a>    SUGGESTION: añadir índice en priority para queries de filtro
+</span><span id="__span-7-55"><a id="__codelineno-7-55" name="__codelineno-7-55" href="#__codelineno-7-55"></a>
+</span><span id="__span-7-56"><a id="__codelineno-7-56" name="__codelineno-7-56" href="#__codelineno-7-56"></a>  --- [AGENTE: docwriter] ---
+</span><span id="__span-7-57"><a id="__codelineno-7-57" name="__codelineno-7-57" href="#__codelineno-7-57"></a>
+</span><span id="__span-7-58"><a id="__codelineno-7-58" name="__codelineno-7-58" href="#__codelineno-7-58"></a>  Actualizando docstrings de endpoints afectados ✓
+</span><span id="__span-7-59"><a id="__codelineno-7-59" name="__codelineno-7-59" href="#__codelineno-7-59"></a>
+</span><span id="__span-7-60"><a id="__codelineno-7-60" name="__codelineno-7-60" href="#__codelineno-7-60"></a>  --- [AGENTE: orchestrator] --- Resumen final ---
+</span><span id="__span-7-61"><a id="__codelineno-7-61" name="__codelineno-7-61" href="#__codelineno-7-61"></a>
+</span><span id="__span-7-62"><a id="__codelineno-7-62" name="__codelineno-7-62" href="#__codelineno-7-62"></a>  mem_session_summary(
+</span><span id="__span-7-63"><a id="__codelineno-7-63" name="__codelineno-7-63" href="#__codelineno-7-63"></a>    content=&quot;
+</span><span id="__span-7-64"><a id="__codelineno-7-64" name="__codelineno-7-64" href="#__codelineno-7-64"></a>    ## Goal
+</span><span id="__span-7-65"><a id="__codelineno-7-65" name="__codelineno-7-65" href="#__codelineno-7-65"></a>    Añadir campo priority (high/medium/low) a los todos
+</span><span id="__span-7-66"><a id="__codelineno-7-66" name="__codelineno-7-66" href="#__codelineno-7-66"></a>
+</span><span id="__span-7-67"><a id="__codelineno-7-67" name="__codelineno-7-67" href="#__codelineno-7-67"></a>    ## Discoveries
+</span><span id="__span-7-68"><a id="__codelineno-7-68" name="__codelineno-7-68" href="#__codelineno-7-68"></a>    - server_default es el patrón seguro para columnas NOT NULL en tablas con datos
+</span><span id="__span-7-69"><a id="__codelineno-7-69" name="__codelineno-7-69" href="#__codelineno-7-69"></a>    - El reviewer sugiere índice en priority para queries de filtro
+</span><span id="__span-7-70"><a id="__codelineno-7-70" name="__codelineno-7-70" href="#__codelineno-7-70"></a>
+</span><span id="__span-7-71"><a id="__codelineno-7-71" name="__codelineno-7-71" href="#__codelineno-7-71"></a>    ## Accomplished
+</span><span id="__span-7-72"><a id="__codelineno-7-72" name="__codelineno-7-72" href="#__codelineno-7-72"></a>    - ✅ Campo priority añadido al modelo y schemas
+</span><span id="__span-7-73"><a id="__codelineno-7-73" name="__codelineno-7-73" href="#__codelineno-7-73"></a>    - ✅ Migración Alembic aplicada y verificada
+</span><span id="__span-7-74"><a id="__codelineno-7-74" name="__codelineno-7-74" href="#__codelineno-7-74"></a>    - ✅ 16 tests en verde
+</span><span id="__span-7-75"><a id="__codelineno-7-75" name="__codelineno-7-75" href="#__codelineno-7-75"></a>    - ✅ Sin blockers
+</span><span id="__span-7-76"><a id="__codelineno-7-76" name="__codelineno-7-76" href="#__codelineno-7-76"></a>
+</span><span id="__span-7-77"><a id="__codelineno-7-77" name="__codelineno-7-77" href="#__codelineno-7-77"></a>    ## Next Steps
+</span><span id="__span-7-78"><a id="__codelineno-7-78" name="__codelineno-7-78" href="#__codelineno-7-78"></a>    - Evaluar si el índice en priority es necesario antes del PR
+</span><span id="__span-7-79"><a id="__codelineno-7-79" name="__codelineno-7-79" href="#__codelineno-7-79"></a>
+</span><span id="__span-7-80"><a id="__codelineno-7-80" name="__codelineno-7-80" href="#__codelineno-7-80"></a>    ## Relevant Files
+</span><span id="__span-7-81"><a id="__codelineno-7-81" name="__codelineno-7-81" href="#__codelineno-7-81"></a>    - app/models/todo.py — campo priority añadido
+</span><span id="__span-7-82"><a id="__codelineno-7-82" name="__codelineno-7-82" href="#__codelineno-7-82"></a>    - alembic/versions/add_priority.py — migración generada
+</span><span id="__span-7-83"><a id="__codelineno-7-83" name="__codelineno-7-83" href="#__codelineno-7-83"></a>    - app/schemas/todo.py — schemas actualizados
+</span><span id="__span-7-84"><a id="__codelineno-7-84" name="__codelineno-7-84" href="#__codelineno-7-84"></a>    &quot;
+</span><span id="__span-7-85"><a id="__codelineno-7-85" name="__codelineno-7-85" href="#__codelineno-7-85"></a>  ) ✓
+</span><span id="__span-7-86"><a id="__codelineno-7-86" name="__codelineno-7-86" href="#__codelineno-7-86"></a>
+</span><span id="__span-7-87"><a id="__codelineno-7-87" name="__codelineno-7-87" href="#__codelineno-7-87"></a>  Resumen:
+</span><span id="__span-7-88"><a id="__codelineno-7-88" name="__codelineno-7-88" href="#__codelineno-7-88"></a>  ✓ 16 tests en verde
+</span><span id="__span-7-89"><a id="__codelineno-7-89" name="__codelineno-7-89" href="#__codelineno-7-89"></a>  ✓ Migración verificada en BD
+</span><span id="__span-7-90"><a id="__codelineno-7-90" name="__codelineno-7-90" href="#__codelineno-7-90"></a>  ✓ Patrón guardado en memoria para futuras migraciones
+</span><span id="__span-7-91"><a id="__codelineno-7-91" name="__codelineno-7-91" href="#__codelineno-7-91"></a>  → Suggestion pendiente: índice en priority
+</span><span id="__span-7-92"><a id="__codelineno-7-92" name="__codelineno-7-92" href="#__codelineno-7-92"></a>  → Listo para PR
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">🎯 Lo que Engram aporta al harness</p>
+<p>Sin Engram, la próxima vez que ejecutes <code>/harness-run</code>, el orchestrator no recordará que usaste <code>server_default</code> en la migración anterior. Con Engram, <code>mem_search "migración"</code> devuelve el patrón completo — el agente aprende de sesiones pasadas sin que tú le vuelvas a explicar.</p>
+</div>
+<hr />
+<h2 id="workflow-completo-harness-engram">Workflow completo: Harness + Engram<a class="headerlink" href="#workflow-completo-harness-engram" title="Permanent link">&para;</a></h2>
+<h3 id="integracion-con-los-comandos">Integración con los comandos<a class="headerlink" href="#integracion-con-los-comandos" title="Permanent link">&para;</a></h3>
+<p>Los comandos del harness ya incluyen llamadas a Engram:</p>
+<p><strong><code>/harness-run</code></strong> usa Engram en dos momentos:</p>
+<ol>
+<li><strong>Al inicio</strong> (paso ANALIZAR):</li>
+<li><code>mem_current_project</code> → confirma el proyecto detectado</li>
+<li>
+<p><code>mem_search "$ARGUMENTS"</code> → busca contexto previo relacionado con la tarea</p>
+</li>
+<li>
+<p><strong>Al final</strong> (paso REPORTE FINAL):</p>
+</li>
+<li><code>mem_session_summary</code> → guarda Goal/Discoveries/Accomplished/Next Steps/Relevant Files</li>
+</ol>
+<p><strong><code>/harness-proposal</code></strong> usa Engram al inicio:</p>
+<ol>
+<li><strong>BUSCAR CONTEXTO</strong>:</li>
+<li><code>mem_search "$ARGUMENTS"</code> → verifica que no existe una propuesta o decisión similar previa</li>
+</ol>
+<h3 id="flujo-visual">Flujo visual<a class="headerlink" href="#flujo-visual" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>sequenceDiagram
+    participant U as Usuario
+    participant O as Orchestrator
+    participant D as Docwriter
+    participant R as Reviewer
+    participant E as Engram
+
+    U-&gt;&gt;O: /harness-run nueva página
+    O-&gt;&gt;E: mem_current_project
+    E--&gt;&gt;O: "todo-harness"
+    O-&gt;&gt;E: mem_search "nueva página"
+    E--&gt;&gt;O: 0 resultados
+
+    O-&gt;&gt;D: --- [AGENTE: docwriter] ---
+    D-&gt;&gt;D: crear docs/nueva-pagina.md
+    D-&gt;&gt;E: mem_save (si descubre algo no obvio)
+    E--&gt;&gt;D: ✓
+
+    O-&gt;&gt;R: --- [AGENTE: reviewer] ---
+    R-&gt;&gt;E: mem_context
+    E--&gt;&gt;R: memorias previas
+    R-&gt;&gt;D: revisar + build
+
+    O-&gt;&gt;E: mem_session_summary
+    E--&gt;&gt;O: ✓
+    O-&gt;&gt;U: Resumen final</code></pre>
+<hr />
+<h2 id="topic-keys-organizacion-de-memorias">Topic Keys — Organización de memorias<a class="headerlink" href="#topic-keys-organizacion-de-memorias" title="Permanent link">&para;</a></h2>
+<h3 id="que-es-un-topic_key">¿Qué es un topic_key?<a class="headerlink" href="#que-es-un-topic_key" title="Permanent link">&para;</a></h3>
+<p><code>topic_key</code> convierte <code>mem_save</code> en un <strong>upsert</strong>: si ya existe una memoria con el mismo <code>project + scope + topic_key</code>, se actualiza en lugar de crear una fila nueva. Ideal para conocimiento que evoluciona con el tiempo.</p>
+<h3 id="formato">Formato<a class="headerlink" href="#formato" title="Permanent link">&para;</a></h3>
+<p>Slash-separated lowercase kebab-case, máximo 2 niveles:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>family/specific-description
+</span></code></pre></div>
+<h3 id="cuando-usarlo">Cuándo usarlo<a class="headerlink" href="#cuando-usarlo" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Situación</th>
+<th>¿Usar topic_key?</th>
+<th>Razón</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Decisión de arquitectura que puede evolucionar</td>
+<td>Sí</td>
+<td>Mantiene el historial en una sola observación</td>
+</tr>
+<tr>
+<td>Feature que abarca varias sesiones</td>
+<td>Sí</td>
+<td>Fuente única de verdad transversal</td>
+</tr>
+<tr>
+<td>Patrón o convención establecida</td>
+<td>Sí</td>
+<td>Una entrada canónica que madura</td>
+</tr>
+<tr>
+<td>Bug corregido y cerrado</td>
+<td>No</td>
+<td>Una observación puntual es suficiente</td>
+</tr>
+<tr>
+<td>Descubrimiento one-off</td>
+<td>No</td>
+<td>Crear una key que no reutilizarás añade ruido</td>
+</tr>
+<tr>
+<td>Múltiples decisiones independientes del mismo tema</td>
+<td>No — usar keys distintas</td>
+<td>Se sobreescribirían entre sí</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ejemplo-completo">Ejemplo completo<a class="headerlink" href="#ejemplo-completo" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># El agente no está seguro de qué key usar</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>mem_suggest_topic_key<span class="o">(</span><span class="nv">type</span><span class="o">=</span><span class="s2">&quot;architecture&quot;</span>,<span class="w"> </span><span class="nv">title</span><span class="o">=</span><span class="s2">&quot;Auth model&quot;</span><span class="o">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>→<span class="w"> </span>devuelve:<span class="w"> </span><span class="s2">&quot;architecture/auth-model&quot;</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1"># Primera vez: crea la observación</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>mem_save<span class="o">(</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">  </span><span class="nv">title</span><span class="o">=</span><span class="s2">&quot;Usamos JWT para auth&quot;</span>,
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">  </span><span class="nv">type</span><span class="o">=</span><span class="s2">&quot;architecture&quot;</span>,
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">  </span><span class="nv">topic_key</span><span class="o">=</span><span class="s2">&quot;architecture/auth-model&quot;</span>,
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">  </span><span class="nv">content</span><span class="o">=</span><span class="s2">&quot;What: JWT con refresh tokens\nWhy: Stateless, escalable\nWhere: app/auth/\nLearned: Rotación cada 7 días&quot;</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="o">)</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>→<span class="w"> </span>crea<span class="w"> </span>observación<span class="w"> </span><span class="o">(</span><span class="nv">revision_count</span><span class="o">=</span><span class="m">1</span><span class="o">)</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="c1"># Sesión siguiente: actualiza la misma observación</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>mem_save<span class="o">(</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">  </span><span class="nv">title</span><span class="o">=</span><span class="s2">&quot;Cambiamos a Session-based auth&quot;</span>,
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">  </span><span class="nv">type</span><span class="o">=</span><span class="s2">&quot;architecture&quot;</span>,
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">  </span><span class="nv">topic_key</span><span class="o">=</span><span class="s2">&quot;architecture/auth-model&quot;</span>,
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">  </span><span class="nv">content</span><span class="o">=</span><span class="s2">&quot;What: Sessions con Redis\nWhy: JWT no permitía revocación\nWhere: app/auth/, app/middleware/\nLearned: Redis TTL de 24h&quot;</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="o">)</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>→<span class="w"> </span>actualiza<span class="w"> </span>observación<span class="w"> </span><span class="o">(</span><span class="nv">revision_count</span><span class="o">=</span><span class="m">2</span><span class="o">)</span><span class="w"> </span>—<span class="w"> </span>NO<span class="w"> </span>crea<span class="w"> </span>fila<span class="w"> </span>nueva
+</span></code></pre></div>
+<h3 id="familias-de-topic-keys">Familias de topic keys<a class="headerlink" href="#familias-de-topic-keys" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Familia</th>
+<th>Para qué</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>architecture/*</code></td>
+<td>Decisiones de diseño y arquitectura</td>
+</tr>
+<tr>
+<td><code>bug/*</code></td>
+<td>Bugs corregidos y sus causas raíz</td>
+</tr>
+<tr>
+<td><code>decision/*</code></td>
+<td>Decisiones explícitas con tradeoffs</td>
+</tr>
+<tr>
+<td><code>pattern/*</code></td>
+<td>Convenciones de naming, estructura, código</td>
+</tr>
+<tr>
+<td><code>config/*</code></td>
+<td>Configuración del entorno y proyecto</td>
+</tr>
+<tr>
+<td><code>discovery/*</code></td>
+<td>Hallazgos no obvios sobre el codebase</td>
+</tr>
+<tr>
+<td><code>feature/*</code></td>
+<td>Features en desarrollo que abarcan sesiones</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>GitHub</strong>: <a href="https://github.com/Gentleman-Programming/engram">https://github.com/Gentleman-Programming/engram</a></li>
+<li><strong>Documentación completa</strong>: <a href="https://github.com/Gentleman-Programming/engram/blob/main/DOCS.md">https://github.com/Gentleman-Programming/engram/blob/main/DOCS.md</a></li>
+<li><strong>Agent Setup</strong>: <a href="https://github.com/Gentleman-Programming/engram/blob/main/docs/AGENT-SETUP.md">https://github.com/Gentleman-Programming/engram/blob/main/docs/AGENT-SETUP.md</a></li>
+<li><strong>Arquitectura</strong>: <a href="https://github.com/Gentleman-Programming/engram/blob/main/docs/ARCHITECTURE.md">https://github.com/Gentleman-Programming/engram/blob/main/docs/ARCHITECTURE.md</a></li>
+<li><strong>Instalación</strong>: <a href="https://github.com/Gentleman-Programming/engram/blob/main/docs/INSTALLATION.md">https://github.com/Gentleman-Programming/engram/blob/main/docs/INSTALLATION.md</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../harness/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: El Harness">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                El Harness
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../references/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Referencias">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                Referencias
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Hecho con mucho ❤️ por tu amigo Flavio 😎
+
+    </div>
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["announce.dismiss","content.code.annotate","content.code.copy","content.code.select","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.path","navigation.sections","navigation.top","navigation.tracking","search.highlight"],"search":"../assets/javascripts/workers/search.b6b7e04f.min.js","tags":null,"translations":{"clipboard.copied":"Copiado al portapapeles","clipboard.copy":"Copiar al portapapeles","search.result.more.one":"1 más en esta página","search.result.more.other":"# más en esta página","search.result.none":"No se encontraron documentos","search.result.one":"1 documento encontrado","search.result.other":"# documentos encontrados","search.result.placeholder":"Teclee para comenzar búsqueda","search.result.term.missing":"Falta","select.version":"Seleccionar versión"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.ee611ef6.min.js"></script>
+      
+    
+  </body>
+</html>
