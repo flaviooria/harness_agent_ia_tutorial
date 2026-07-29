@@ -1,3 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url>
+        <loc>http://flaviooria.github.io/harness_agent_ia_tutorial/</loc>
+      </url>
+      <url>
+        <loc>http://flaviooria.github.io/harness_agent_ia_tutorial/base_docs/</loc>
+      </url>
+      <url>
+        <loc>http://flaviooria.github.io/harness_agent_ia_tutorial/harness/</loc>
+      </url>
+      <url>
+        <loc>http://flaviooria.github.io/harness_agent_ia_tutorial/engram/</loc>
+      </url>
+      <url>
+        <loc>http://flaviooria.github.io/harness_agent_ia_tutorial/references/</loc>
+      </url>
 </urlset>
