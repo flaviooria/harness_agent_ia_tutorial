@@ -247,7 +247,7 @@ h1, h2, h3, .md-typeset h1, .md-typeset h2 {
 }
 
 .md-nav__link--active {
-  color: var(--accent-dark);
+  color: var(--accent-dark) !important;
   font-weight: 600;
 }
 
